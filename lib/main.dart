@@ -75,7 +75,7 @@ Widget build(BuildContext context)
                 child: TextField(
                   onChanged: (value) =>n1 = value,
                   decoration: InputDecoration(
-                      labelText: "Enter no. of years."
+                      labelText: "Enter no. of Months."
                   ),
                   keyboardType: TextInputType.number,
                 )
@@ -97,7 +97,7 @@ Widget build(BuildContext context)
   void _emiCalc() {
     double a =0.0;
 double p = double.parse(p1);
-double r = double.parse(r1);
+double r = double.parse(r1)/12/100;
 double n = double.parse(n1);
 
 
