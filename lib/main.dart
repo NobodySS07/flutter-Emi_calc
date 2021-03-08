@@ -31,10 +31,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-String _finalEmi = "";
-final TextEditingController _principalAmount = TextEditingController();
-final TextEditingController _interestRate = TextEditingController();
-final TextEditingController _tenure = TextEditingController();
+
+ String p1 ;
+  String r1;
+  String n1;
+  String _finalEmi = "";
 @override
 Widget build(BuildContext context)
 {
@@ -50,7 +51,7 @@ Widget build(BuildContext context)
             Container(
               padding: EdgeInsets.all(25.0),
               child: TextField(
-                controller: _principalAmount,
+                onChanged: (value) => p1 = value ,
                 decoration: InputDecoration(
                   labelText: "Enter Principal Amount"
                 ),
@@ -61,26 +62,29 @@ Widget build(BuildContext context)
             Container(
               padding: EdgeInsets.all(25.0),
               child: TextField(
-                controller: _interestRate,
+                onChanged: (value) => r1 = value ,
                 decoration: InputDecoration(
                     labelText: "Enter Interest Rate"
                 ),
                 keyboardType: TextInputType.number,
               )
             ),
+
             Container(
                 padding: EdgeInsets.all(25.0),
                 child: TextField(
-                  controller: _tenure,
+                  onChanged: (value) =>n1 = value,
                   decoration: InputDecoration(
-                      labelText: "Enter no. of Months."
+                      labelText: "Enter no. of years."
                   ),
                   keyboardType: TextInputType.number,
                 )
             ),
+            
             FlatButton(onPressed: _emiCalc, child: Text("Calculate EMI(s)"),
             color: Colors.redAccent[400],padding: EdgeInsets.all(10.0)
             ),
+            
             _finalEmiWidget(_finalEmi)
 
           ],
@@ -91,11 +95,14 @@ Widget build(BuildContext context)
 }
 
   void _emiCalc() {
-  double a=0.0;
-  double p =int.parse(_principalAmount.text) as double;
-  double r=int.parse(_interestRate.text) as double;
-  int n=int.parse(_tenure.text) ;
-  a=(p*r*pow((1+r),n)/(pow((1+r),n)-1));
+    double a =0.0;
+double p = double.parse(p1);
+double r = double.parse(r1);
+double n = double.parse(n1);
+
+
+a= (p*r*pow(1+r,n))/(pow(1+r,n)-1);
+
   _finalEmi=a.toStringAsFixed(2);
 setState(() {
 
@@ -107,7 +114,7 @@ setState(() {
   Widget _finalEmiWidget(finalEmi) {
   bool canShow =false;
   String _finalEmi = finalEmi;
-  if(_finalEmi.length> 0)
+  if(_finalEmi.length>0)
     {
       canShow=true;
     }
@@ -121,7 +128,7 @@ setState(() {
         fontSize:20  ,fontWeight: FontWeight.bold
           )
           ),
-          Container(
+          Container(color: Colors.blue,
               child: Text(_finalEmi,
                   style: TextStyle(
                       fontSize: 50.0,
